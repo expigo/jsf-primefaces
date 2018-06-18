@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!--
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{painterController.loadPainters()}"/>
+        </f:metadata>-->
+
+
+        <!--<f:event type="preRenderView" listener="#{painterController.loadPainters()}"/>-->
+        <!--<f:viewAction action="#{painterController.loadPainters()}" />-->
+
+
+
+
+    <h:head>
+        <title>Facelet Title</title>
+
+        <h:outputStylesheet library="css" name="list-style.css" />
+    </h:head>
+    <h:body>
+        <h:form id="allPainters" prependId="false">  
+
+            <p:growl id="messages" showDetail="false"/>
+
+            <p:dataTable var ="painter" value="#{painterController.painters}">
+                <f:facet name="header" > 
+                    List of Painters
+                </f:facet>
+
+                <p:column headerText="id" >
+                    <h:outputText value="#{painter.id}" />
+                </p:column>
+
+                <p:column headerText="First Name" sortBy="#{painter.firstName}" filterBy="#{painter.firstName}">
+                    <h:outputText value="#{painter.firstName}" />
+                </p:column>
+
+                <p:column headerText="Last Name" sortBy="#{painter.lastName}" filterBy="#{painter.lastName}">
+                    <h:outputText value="#{painter.lastName}" />
+                </p:column>
+
+                <p:column headerText="Age" sortBy="#{painter.age}" filterBy="#{painter.age}">
+                    <h:outputText value="#{painter.age}" />
+                </p:column>
+
+                <p:column headerText="Action">
+                    <h:commandLink value="Delete" action="#{painterController.deletePainter(painter)}">
+                    </h:commandLink>
+                </p:column>
+
+                <p:column headerText="Action">
+                    <h:commandLink value="Update" action="#{painterController.loadPainter(painter.id)}">
+                        <f:param name="selectedPainterId" value="painter.id" />
+                    </h:commandLink>
+                </p:column>
+
+            </p:dataTable>
+
+
+            <p:menu>
+
+                <p:submenu label="Navigations">
+                    <p:menuitem value="Add painter" outcome="/add-painter" icon="ui-icon-star"/>
+                    <p:menuitem value="List paintings" outcome="/list-paintings" icon="ui-icon-brush"/>
+                </p:submenu>
+            </p:menu>
+        </h:form>
+    </h:body>
+</html>
+

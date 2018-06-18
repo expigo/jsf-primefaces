@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:event type="postAddToView" listener="#{paintingController.init()}"/>
+    
+    <h:head>
+        <title>Add Painter</title>
+
+        <h:outputStylesheet library="css" name="list-style.css" />
+
+    </h:head>
+    <h:body>
+
+
+        <h:form id="allPainters" prependId="false">  
+
+            <p:growl id="messages" showDetail="false"/>
+
+            <p:dataTable var ="painting" value="#{paintingController.paintings}">
+                <f:facet name="header" > 
+                    List of Painters
+                </f:facet>
+
+                <p:column headerText="id" >
+                    <h:outputText value="#{painting.id}" />
+                </p:column>
+
+                <p:column headerText="Title" sortBy="#{painting.title}" filterBy="#{painting.title}">
+                    <h:outputText value="#{painting.title}" />
+                </p:column>
+
+                <p:column headerText="Painter" sortBy="#{painting.painter}" filterBy="#{painting.painter}">
+                    <h:outputText value="#{painting.painter}" />
+                </p:column>
+
+                <p:column headerText="Action">
+                    <h:commandLink value="Delete" action="#{paintingController.deletePainting(painting)}"/>
+                </p:column>
+
+                <p:column headerText="Action">
+                    <h:commandLink value="Update" action="#{paintingController.update(painting.id)}"/>
+                </p:column> 
+
+
+            </p:dataTable>
+
+
+            <p:menu>
+
+                <p:submenu label="Navigations">
+                    <p:menuitem value="Add painting" outcome="/add-painting" icon="ui-icon-star"/>
+                    <p:menuitem value="List painters" outcome="/index" icon="ui-icon-brush"/>
+                </p:submenu>
+            </p:menu>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <title>Add Painting</title>
+
+        <h:outputStylesheet library="css" name="list-style.css" />
+
+    </h:head>
+    <h:body>
+
+        <h:form id="addPainting" prependId="false">
+            <p:growl id="growl_first" sticky="true" showDetail="true" life="3000" />
+            <p:growl id="growl_last" sticky="true" showDetail="true" life="3000" />
+
+
+            <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:10px">
+
+                <!--<p:messages id="msg2"></p:messages>-->
+
+
+                <f:facet name="header">
+                    <h2>Add Painting Form</h2>
+                    <!--<p:messages id="msg"></p:messages>-->
+                </f:facet>
+
+
+                <p:outputLabel for="title" value="Title: " />
+                <p:inputText id="title" value="#{paintingController.painting.title}" required="true">
+                    <p:ajax event="blur" update="growl_first"/>
+                    <f:validateLength minimum="3" maximum="15"/>
+                </p:inputText>
+
+                <p:outputLabel for="painter" value="Painter: " />
+                <p:selectOneMenu id="painter" value="#{paintingController.painting.painter}" converter="painterConverter" style="width:180px"  required="true">
+                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{paintingController.painters}" itemLabel="#{selectedPainter}" var="selectedPainter" itemValue="#{selectedPainter}"/>
+                </p:selectOneMenu> 
+
+                <p:commandButton value="Submit" id="addPaintingBtn" action="#{paintingController.addPainting()}" update="growl_first"/>
+
+                <p:commandButton value="Reset values" style="margin-right:20px;" >
+                    <p:ajax update="@form" resetValues="true"/>
+                </p:commandButton>
+            </h:panelGrid>
+
+            <p:button value="Cancel" outcome="list-paintings.xhtml"/>
+
+        </h:form>
+
+    </h:body>
+</html>
+

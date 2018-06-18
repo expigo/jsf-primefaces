@@ -1,0 +1,18 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body{
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    line-height: 1.7;
+    padding: 3rem;
+    background-color: #519D9E ;
+}
